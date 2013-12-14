@@ -5,23 +5,44 @@ public class GenerateMap : MonoBehaviour {
 	
 	public Transform m_tPlayerPosition;
 	private Vector3 m_v3LastUpdatedMapPosition;
-	public GameObject m_goDirtBlock;
+	public GameObject[] m_goDirtBlockPrefabs;
 	private float m_iDirtBlockHeight;
 	
 	
-	int MAX_AMOUNT_DIRT_BLOCKS = 30; //6 X 5
+	int MAX_AMOUNT_DIRT_BLOCKS = 3000; 
+
 	int iAmountOfDirtBlocksInScreen = 0;
 	int iIndexDirtBlockArray = 0;
 	
-	GameObject[] dirtBlockList = new GameObject[30];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
+	enum EGroundTiles
+	{
+		EGroundTiles_Ground1 = 0,
+		EGroundTiles_Ground2,
+		EGroundTiles_Ground3,
+		EGroundTiles_Ground4,
+		EGroundTiles_Ground5,
+		EGroundTiles_Rock1,
+		EGroundTiles_Rock2,
+		
+		EGroundTiles_Max
+		
+	};
+	
+	
+	EGroundTiles[] dirtBlockMapLayout = new int[6000];
+	GameObject[] dirtBlockActiveList = new GameObject[30];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
+
 	
 	// Use this for initialization
 	void Start () 
 	{
 	
 		m_v3LastUpdatedMapPosition  = transform.position;
-		m_iDirtBlockHeight = m_goDirtBlock.transform.lossyScale.y;
+		m_iDirtBlockHeight = m_goDirtBlockPrefabs[0].transform.lossyScale.y;
 	
+		
+		GenerateMapLayout();
+		
 	}
 	
 	// Update is called once per frame
@@ -38,7 +59,37 @@ public class GenerateMap : MonoBehaviour {
 	}
 	
 	
-	void GenerateDirtBlockRow( Vector3 v3NewRowPosition )
+	void GenerateMapLayout()
+	{
+		
+		for(int i = 0; i <  MAX_AMOUNT_DIRT_BLOCKS; i++)
+		{
+			
+			EGroundTiles typeOfBlock;
+			
+			
+			if(Random.Range(0,100) >= 90)
+			{
+				
+				//typeOfBlock = Random.Range(EGroundTiles_Ground1,0);
+				typeOfBlock z= EgroundTiles_Ground1;
+			}
+			else
+			{
+				//typeOfBlock = Random.Range(0,0);
+				typeOfBlock = EgroundTiles_Rock1;
+				
+			}
+			
+			
+			dirtBlockMapLayout[i] = typeOfBlock;
+			
+			
+		}
+		
+	}
+	
+	void DisplaMapTilesAroundPosition( Vector3 v3NewRowPosition )
 	{
 		
 		for( int i = 0; i < 6; i++ )
@@ -54,7 +105,7 @@ public class GenerateMap : MonoBehaviour {
 			
 			GameObject.Destroy(dirtBlockList[iIndexDirtBlockArray]);
 			
-			dirtBlockList[ iIndexDirtBlockArray ] = GameObject.Instantiate(m_goDirtBlock, new Vector3( v3NewRowPosition.x + ( i * m_iDirtBlockHeight ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
+			dirtBlockList[ iIndexDirtBlockArray ] = GameObject.Instantiate(m_goDirtBlockPrefabs[Random.Range(0,m_goDirtBlockPrefabs.)], new Vector3( v3NewRowPosition.x + ( i * m_iDirtBlockHeight ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
 			dirtBlockList[ iIndexDirtBlockArray ].transform.parent = transform;
 			iAmountOfDirtBlocksInScreen++;
 		}
@@ -62,4 +113,7 @@ public class GenerateMap : MonoBehaviour {
 		m_v3LastUpdatedMapPosition =  new Vector3(transform.position.x, v3NewRowPosition.y, transform.position.z);
 		
 	}
+	
+	
+
 }
