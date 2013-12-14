@@ -29,7 +29,7 @@ public class GenerateMap : MonoBehaviour {
 	};
 	
 	
-	EGroundTiles[] dirtBlockMapLayout = new int[6000];
+	EGroundTiles[] dirtBlockMapLayout = new EGroundTiles[3000];
 	GameObject[] dirtBlockActiveList = new GameObject[30];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
 
 	
@@ -52,7 +52,7 @@ public class GenerateMap : MonoBehaviour {
 		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - m_iDirtBlockHeight )
 		{
 			
-			GenerateDirtBlockRow( m_v3LastUpdatedMapPosition - new Vector3(  m_iDirtBlockHeight*3, m_iDirtBlockHeight, 0 ) ); 
+			DisplaMapTilesAroundPosition( m_v3LastUpdatedMapPosition - new Vector3(  m_iDirtBlockHeight * 3, m_iDirtBlockHeight, 0 ) ); 
 			
 		}
 		
@@ -72,18 +72,16 @@ public class GenerateMap : MonoBehaviour {
 			{
 				
 				//typeOfBlock = Random.Range(EGroundTiles_Ground1,0);
-				typeOfBlock z= EgroundTiles_Ground1;
+				typeOfBlock = EGroundTiles.EGroundTiles_Ground1;
 			}
 			else
 			{
 				//typeOfBlock = Random.Range(0,0);
-				typeOfBlock = EgroundTiles_Rock1;
+				typeOfBlock = EGroundTiles.EGroundTiles_Rock1;
 				
 			}
 			
-			
 			dirtBlockMapLayout[i] = typeOfBlock;
-			
 			
 		}
 		
@@ -103,10 +101,10 @@ public class GenerateMap : MonoBehaviour {
 				iIndexDirtBlockArray = 0;
 			}
 			
-			GameObject.Destroy(dirtBlockList[iIndexDirtBlockArray]);
+			GameObject.Destroy(dirtBlockActiveList[iIndexDirtBlockArray]);
 			
-			dirtBlockList[ iIndexDirtBlockArray ] = GameObject.Instantiate(m_goDirtBlockPrefabs[Random.Range(0,m_goDirtBlockPrefabs.)], new Vector3( v3NewRowPosition.x + ( i * m_iDirtBlockHeight ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
-			dirtBlockList[ iIndexDirtBlockArray ].transform.parent = transform;
+			dirtBlockActiveList[ iIndexDirtBlockArray ] = GameObject.Instantiate(m_goDirtBlockPrefabs[0], new Vector3( v3NewRowPosition.x + ( i * m_iDirtBlockHeight ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
+			dirtBlockActiveList[ iIndexDirtBlockArray ].transform.parent = transform;
 			iAmountOfDirtBlocksInScreen++;
 		}
 		
