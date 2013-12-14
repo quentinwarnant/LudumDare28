@@ -3,9 +3,9 @@ using System.Collections;
 
 public class DiggerMovement : MonoBehaviour 
 {
-	public float diggerSpeed = 5.0f;
-	private float horizontalMovement;
-	private Vector3 moveDirection = new Vector3(0f,-1f,0f);
+	public float m_fDiggerSpeed = 0.01f;
+	private float m_fHorizontalMovement;
+	private Vector3 m_vMoveDirection = new Vector3(0f,-1f,0f);
 	// Use this for initialization
 	void Start () 
 	{
@@ -14,21 +14,21 @@ public class DiggerMovement : MonoBehaviour
 
 	void Update ()
 	{
-		horizontalMovement = Input.GetAxis("DiggerHorizontal");
+		m_fHorizontalMovement = Input.GetAxis("DiggerHorizontal");
 
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		transform.Translate(moveDirection * diggerSpeed);
-		if (horizontalMovement > 0)
+		//transform.Translate(m_vMoveDirection * m_fDiggerSpeed);
+		if (m_fHorizontalMovement > 0)
 		{
-			moveDirection += new Vector3(0.1f,0f,0f);
+			m_vMoveDirection += new Vector3(0.1f,0f,0f);
 		}
-		else if (horizontalMovement < 0)
+		else if (m_fHorizontalMovement < 0)
 		{
-			moveDirection += new Vector3(-0.1f,0f,0f);
+			m_vMoveDirection += new Vector3(-0.1f,0f,0f);
 		}
 	}
 }
