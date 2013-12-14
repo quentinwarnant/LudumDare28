@@ -90,21 +90,18 @@ public class GenerateMap : MonoBehaviour {
 		for( int i = 0; i < m_iAmountOfColumns; i++ )
 		{
 			
-				Debug.Log("a" + i +" " + (- (int)Mathf.Floor(v3NewRowPosition.y))  % 6);
 				
-			if(dirtBlockActiveList[i,(- (int)Mathf.Floor(v3NewRowPosition.y)) % 6] != null)
+			if(dirtBlockActiveList[(- (int)Mathf.Floor(v3NewRowPosition.y)) % 6, i] != null)
 			{
-				Debug.Log("a2" + i +" " + (- (int)Mathf.Floor(v3NewRowPosition.y))  % 6);
 				
-				GameObject.Destroy(dirtBlockActiveList[i,(- (int)Mathf.Floor(v3NewRowPosition.y))% 6]);
+				GameObject.Destroy(dirtBlockActiveList[(- (int)Mathf.Floor(v3NewRowPosition.y))% 6,i]);
 				
 			}
-			Debug.Log("b" + dirtBlockMapLayout[i,(- (int)Mathf.Floor(v3NewRowPosition.y)) % 6]);
 			
-			GameObject newTileToDisplay = m_goDirtBlockPrefabs[dirtBlockMapLayout[i,(- (int)Mathf.Floor(v3NewRowPosition.y))% 6]];
+			GameObject newTileToDisplay = m_goDirtBlockPrefabs[dirtBlockMapLayout[(- (int)Mathf.Floor(v3NewRowPosition.y)),i]];
 			
-			dirtBlockActiveList[i, (- (int)Mathf.Floor(v3NewRowPosition.y)) % 6] = GameObject.Instantiate(newTileToDisplay, new Vector3( v3NewRowPosition.x + ( i * 1 ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
-			dirtBlockActiveList[i, (- (int)Mathf.Floor(v3NewRowPosition.y))% 6 ].transform.parent = transform;
+			dirtBlockActiveList[ (- (int)Mathf.Floor(v3NewRowPosition.y)) % 6,i ] = GameObject.Instantiate(newTileToDisplay, new Vector3( v3NewRowPosition.x + ( i * 1 ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
+			dirtBlockActiveList[ (- (int)Mathf.Floor(v3NewRowPosition.y)) % 6,i ].transform.parent = transform;
 			iAmountOfDirtBlocksInScreen++;
 		}
 		
