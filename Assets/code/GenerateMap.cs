@@ -9,7 +9,12 @@ public class GenerateMap : MonoBehaviour {
 	private float m_iDirtBlockHeight;
 	
 	
-	int MAX_AMOUNT_DIRT_BLOCKS = 3000; 
+	static int m_iAmountOfColumns = 6; 
+	static int m_iAmountOfRows = 6; 
+	
+	
+	int[,] dirtBlockMapLayout = new int[ (m_iAmountOfRows*100), m_iAmountOfColumns];
+	GameObject[,] dirtBlockActiveList = new GameObject[ m_iAmountOfRows, m_iAmountOfColumns];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
 
 	int iAmountOfDirtBlocksInScreen = 0;
 	int iIndexDirtBlockArray = 0;
@@ -17,21 +22,12 @@ public class GenerateMap : MonoBehaviour {
 	enum EGroundTiles
 	{
 		EGroundTiles_Ground1 = 0,
-		EGroundTiles_Ground2,
-		EGroundTiles_Ground3,
-		EGroundTiles_Ground4,
-		EGroundTiles_Ground5,
 		EGroundTiles_Rock1,
-		EGroundTiles_Rock2,
 		
 		EGroundTiles_Max
 		
 	};
 	
-	
-	EGroundTiles[] dirtBlockMapLayout = new EGroundTiles[3000];
-	GameObject[] dirtBlockActiveList = new GameObject[30];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
-
 	
 	// Use this for initialization
 	void Start () 
@@ -49,10 +45,10 @@ public class GenerateMap : MonoBehaviour {
 	void Update () 
 	{
 	
-		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - m_iDirtBlockHeight )
+		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - 1 )
 		{
 			
-			DisplaMapTilesAroundPosition( m_v3LastUpdatedMapPosition - new Vector3(  m_iDirtBlockHeight * 3, m_iDirtBlockHeight, 0 ) ); 
+			DisplaMapTilesAroundPosition( m_v3LastUpdatedMapPosition - new Vector3(  1 * 3, 1, 0 ) ); 
 			
 		}
 		
@@ -62,27 +58,28 @@ public class GenerateMap : MonoBehaviour {
 	void GenerateMapLayout()
 	{
 		
-		for(int i = 0; i <  MAX_AMOUNT_DIRT_BLOCKS; i++)
+		for(int i = 0; i < m_iAmountOfRows * 100; i++)
 		{
-			
-			EGroundTiles typeOfBlock;
-			
-			
-			if(Random.Range(0,100) >= 90)
+			for(int j = 0; j < m_iAmountOfColumns  ; j++)
 			{
+				int typeOfBlock;
 				
-				//typeOfBlock = Random.Range(EGroundTiles_Ground1,0);
-				typeOfBlock = EGroundTiles.EGroundTiles_Ground1;
-			}
-			else
-			{
-				//typeOfBlock = Random.Range(0,0);
-				typeOfBlock = EGroundTiles.EGroundTiles_Rock1;
 				
+				if(Random.Range(0,100) >= 90)
+				{
+					
+					//typeOfBlock = Random.Range(EGroundTiles_Ground1,0);
+					typeOfBlock = (int) EGroundTiles.EGroundTiles_Ground1;
+				}
+				else
+				{
+					//typeOfBlock = Random.Range(0,0);
+					typeOfBlock =(int) EGroundTiles.EGroundTiles_Rock1;
+					
+				}
+				
+				dirtBlockMapLayout[i,j] = typeOfBlock;
 			}
-			
-			dirtBlockMapLayout[i] = typeOfBlock;
-			
 		}
 		
 	}
@@ -90,21 +87,24 @@ public class GenerateMap : MonoBehaviour {
 	void DisplaMapTilesAroundPosition( Vector3 v3NewRowPosition )
 	{
 		
-		for( int i = 0; i < 6; i++ )
+		for( int i = 0; i < m_iAmountOfColumns; i++ )
 		{
-			iIndexDirtBlockArray ++;
 			
+				Debug.Log("a" + i +" " + (- (int)Mathf.Floor(v3NewRowPosition.y))  % 6);
 				
-			if(iIndexDirtBlockArray == MAX_AMOUNT_DIRT_BLOCKS)
+			if(dirtBlockActiveList[i,(- (int)Mathf.Floor(v3NewRowPosition.y)) % 6] != null)
 			{
+				Debug.Log("a2" + i +" " + (- (int)Mathf.Floor(v3NewRowPosition.y))  % 6);
 				
-				iIndexDirtBlockArray = 0;
+				GameObject.Destroy(dirtBlockActiveList[i,(- (int)Mathf.Floor(v3NewRowPosition.y))% 6]);
+				
 			}
+			Debug.Log("b" + dirtBlockMapLayout[i,(- (int)Mathf.Floor(v3NewRowPosition.y)) % 6]);
 			
-			GameObject.Destroy(dirtBlockActiveList[iIndexDirtBlockArray]);
+			GameObject newTileToDisplay = m_goDirtBlockPrefabs[dirtBlockMapLayout[i,(- (int)Mathf.Floor(v3NewRowPosition.y))% 6]];
 			
-			dirtBlockActiveList[ iIndexDirtBlockArray ] = GameObject.Instantiate(m_goDirtBlockPrefabs[0], new Vector3( v3NewRowPosition.x + ( i * m_iDirtBlockHeight ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
-			dirtBlockActiveList[ iIndexDirtBlockArray ].transform.parent = transform;
+			dirtBlockActiveList[i, (- (int)Mathf.Floor(v3NewRowPosition.y)) % 6] = GameObject.Instantiate(newTileToDisplay, new Vector3( v3NewRowPosition.x + ( i * 1 ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
+			dirtBlockActiveList[i, (- (int)Mathf.Floor(v3NewRowPosition.y))% 6 ].transform.parent = transform;
 			iAmountOfDirtBlocksInScreen++;
 		}
 		
