@@ -173,7 +173,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: cd5b25c5409608046a0cd9762a5fb067, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf7ec606a9705204da63aefe17acd08a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1170742761
 Transform:
@@ -198,6 +198,7 @@ GameObject:
   - 92: {fileID: 1537140397}
   - 124: {fileID: 1537140396}
   - 81: {fileID: 1537140395}
+  - 114: {fileID: 1537140400}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -266,6 +267,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1537140400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1537140394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46c93a3cec91b14f837ee3ccf05d9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1794896167}
 --- !u!1 &1594847849
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ec5df6d25891b4ca6edd6fd3deae99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diggerSpeed: .00999999978
 --- !u!50 &1594847854
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -374,7 +386,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1794896167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd10ae84583e23f4c8ceb4cdec791039, type: 3}
+  m_Script: {fileID: 11500000, guid: f187d88ae66631b4dad9a20d7f09ab7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &1794896169
