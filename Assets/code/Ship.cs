@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ship : MonoBehaviour
 {
-	private Vector2 m_v2ShipSpeed = new Vector2( 0.1f, -0.01f );
+	public Vector2 m_v2ShipSpeed = new Vector2( 0.1f, -0.01f );
 
 	// Use this for initialization
 	void Start()
