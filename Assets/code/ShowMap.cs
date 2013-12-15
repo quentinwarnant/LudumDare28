@@ -6,8 +6,8 @@ public class ShowMap : MonoBehaviour {
 	private Transform m_tPlayerPosition;
 	private Vector3 m_v3LastUpdatedMapPosition;
 	
-	private	int[,] dirtBlockMapLayout; //= new int[ (m_iAmountOfRows*100), m_iAmountOfColumns];
-	private GameObject[,] dirtBlockActiveList; //= new GameObject[ m_iAmountOfRows, m_iAmountOfColumns];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
+	private	int[,] dirtBlockMapLayout; 
+	private GameObject[,] dirtBlockActiveList; 
 	
 	private GameObject[] m_goTileBlockPrefabs;
 	
@@ -36,7 +36,7 @@ public class ShowMap : MonoBehaviour {
 		m_tPlayerPosition = this.transform;
 		
 		
-		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - 1 )
+		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - 1  && ( m_v3LastUpdatedMapPosition.y - 1  >= -(m_iAmountOfRows*100 ) ))
 		{
 			
 			DisplaMapTilesAroundPosition( m_v3LastUpdatedMapPosition - new Vector3(  1 * (m_iAmountOfColumns/2), 1, 0 ) ); 

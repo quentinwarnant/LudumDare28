@@ -4,14 +4,12 @@ using System.Collections;
 public class GenerateMap : MonoBehaviour {
 	
 	public GameObject[] m_goTileBlockPrefabs;
-	private float m_iDirtBlockHeight;
-	
+	private float m_fDirtBlockHeight;
 	
 	public static int m_iAmountOfColumns = 12; 
 	public static int m_iAmountOfRows = 8; 
 	
-	
-	public int[,] dirtBlockMapLayout = new int[ (m_iAmountOfRows*100), m_iAmountOfColumns];
+	public int[,] dirtBlockMapLayout = new int[ (m_iAmountOfRows*100)+1, m_iAmountOfColumns];
 	GameObject[,] dirtBlockActiveList = new GameObject[ m_iAmountOfRows, m_iAmountOfColumns];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
 
 	int iAmountOfDirtBlocksInScreen = 0;
@@ -35,7 +33,7 @@ public class GenerateMap : MonoBehaviour {
 	void Start () 
 	{
 	
-		m_iDirtBlockHeight = m_goTileBlockPrefabs[0].transform.lossyScale.y;
+		m_fDirtBlockHeight = m_goTileBlockPrefabs[0].transform.lossyScale.y;
 	
 		
 		GenerateMapLayout();
@@ -53,24 +51,32 @@ public class GenerateMap : MonoBehaviour {
 	
 	void GenerateMapLayout()
 	{
-		
 		for(int i = 0; i < m_iAmountOfRows * 100; i++)
 		{
 			for(int j = 0; j < m_iAmountOfColumns  ; j++)
 			{
 				int typeOfBlock;
+				int amountofRocksInThisRow = 0;
 				
-				
-				if(Random.Range(0,100) <= (90 - ( ( m_iAmountOfRows*100 ) - (i) )) )
+				if(Random.Range(0,100) <= (100 - ( i/50 ) ) )
 				{
 					
 					typeOfBlock = Random.Range( (int) EGroundTiles.EGroundTiles_Ground1, (int) EGroundTiles.EGroundTiles_Ground2 );
-					//typeOfBlock = (int) EGroundTiles.EGroundTiles_Ground1;
+					
 				}
 				else
 				{
-					typeOfBlock = Random.Range( (int) EGroundTiles.EGroundTiles_Rock1, (int) EGroundTiles.EGroundTiles_Rock4 );
-					//typeOfBlock =(int) EGroundTiles.EGroundTiles_Rock1;
+					amountofRocksInThisRow++;
+					
+					if(amountofRocksInThisRow > m_iAmountOfColumns/2)
+					{
+						typeOfBlock = Random.Range( (int) EGroundTiles.EGroundTiles_Ground1, (int) EGroundTiles.EGroundTiles_Ground2 );
+					
+					}
+					else
+					{
+						typeOfBlock = Random.Range( (int) EGroundTiles.EGroundTiles_Rock1, (int) EGroundTiles.EGroundTiles_Rock4 );
+					}
 					
 				}
 				
@@ -78,6 +84,12 @@ public class GenerateMap : MonoBehaviour {
 			}
 		}
 		
+		//lowest level
+		for(int j = 0; j < m_iAmountOfColumns  ; j++)
+		{
+			
+			dirtBlockMapLayout[m_iAmountOfRows * 100,j] = (int) EGroundTiles.EGroundTiles_Rock1;
+		}
 	}
 	
 	public int GetColumnAmount()
