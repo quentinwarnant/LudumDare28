@@ -6,12 +6,11 @@ public class GenerateMap : MonoBehaviour {
 	public GameObject[] m_goTileBlockPrefabs;
 	private float m_fDirtBlockHeight;
 	
-	public static int m_iAmountOfColumns = 12; 
-	public static int m_iAmountOfRows = 8; 
+	public static int m_iAmountOfColumns = 40; 
+	public static int m_iAmountOfRows = 8000; 
 	
-	public int[,] dirtBlockMapLayout = new int[ (m_iAmountOfRows*100)+1, m_iAmountOfColumns];
-	GameObject[,] dirtBlockActiveList = new GameObject[ m_iAmountOfRows, m_iAmountOfColumns];	//TODO: replace 100 by amount of dirtblocks that will be visible on the screen
-
+	public int[,] dirtBlockMapLayout = new int[ (m_iAmountOfRows)+1, m_iAmountOfColumns];
+	
 	int iAmountOfDirtBlocksInScreen = 0;
 	int iIndexDirtBlockArray = 0;
 	
@@ -51,14 +50,14 @@ public class GenerateMap : MonoBehaviour {
 	
 	void GenerateMapLayout()
 	{
-		for(int i = 0; i < m_iAmountOfRows * 100; i++)
+		for(int i = 0; i < m_iAmountOfRows ; i++)
 		{
 			for(int j = 0; j < m_iAmountOfColumns  ; j++)
 			{
 				int typeOfBlock;
 				int amountofRocksInThisRow = 0;
 				
-				if(Random.Range(0,100) <= (100 - ( i/50 ) ) )
+				if(Random.Range(0,100) <= (100 - ( i/500 ) ) )
 				{
 					
 					typeOfBlock = Random.Range( (int) EGroundTiles.EGroundTiles_Ground1, (int) EGroundTiles.EGroundTiles_Ground2 );
@@ -88,7 +87,7 @@ public class GenerateMap : MonoBehaviour {
 		for(int j = 0; j < m_iAmountOfColumns  ; j++)
 		{
 			
-			dirtBlockMapLayout[m_iAmountOfRows * 100,j] = (int) EGroundTiles.EGroundTiles_Rock1;
+			dirtBlockMapLayout[m_iAmountOfRows ,j] = (int) EGroundTiles.EGroundTiles_Rock1;
 		}
 	}
 	

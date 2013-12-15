@@ -30,8 +30,8 @@ public class Digging : MonoBehaviour
 //		{
 //			GameObject.Instantiate(m_goDiggedCubePrefab,transform.position,transform.rotation);  
 //		}
-		Debug.Log("dig pos: " + transform.position.y);
-		Debug.Log("dig: " + m_v3LastDiggedSquarePosition.y);
+	//	Debug.Log("dig pos: " + transform.position.y);
+	//	Debug.Log("dig: " + m_v3LastDiggedSquarePosition.y);
 		if(transform.position.y < m_v3LastDiggedSquarePosition.y + m_fDiggedSquareHeight/2)
 		{
 			DigDown();

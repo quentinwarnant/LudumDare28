@@ -23,7 +23,7 @@ public class ShowMap : MonoBehaviour {
 		m_iAmountOfRows = map.GetRowAmount();
 		
 		dirtBlockMapLayout = map.dirtBlockMapLayout;
-		dirtBlockActiveList = new GameObject[ m_iAmountOfRows, m_iAmountOfColumns ];
+		dirtBlockActiveList = new GameObject[ m_iAmountOfRows/380, m_iAmountOfColumns ];
 		m_goTileBlockPrefabs = map.m_goTileBlockPrefabs;
 		m_v3LastUpdatedMapPosition  = transform.position;
 		
@@ -36,10 +36,10 @@ public class ShowMap : MonoBehaviour {
 		m_tPlayerPosition = this.transform;
 		
 		
-		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - 1  && ( m_v3LastUpdatedMapPosition.y - 1  >= -(m_iAmountOfRows*100 ) ))
+		if( m_tPlayerPosition.position.y < m_v3LastUpdatedMapPosition.y - 32  && ( m_v3LastUpdatedMapPosition.y - 32  >= -(m_iAmountOfRows ) ))
 		{
 			
-			DisplaMapTilesAroundPosition( m_v3LastUpdatedMapPosition - new Vector3(  1 * (m_iAmountOfColumns/2), 1, 0 ) ); 
+			DisplaMapTilesAroundPosition( m_v3LastUpdatedMapPosition - new Vector3(   (m_iAmountOfColumns/2) * 32, 32, 0 ) ); 
 			
 		}
 	}
@@ -52,20 +52,18 @@ public class ShowMap : MonoBehaviour {
 		{
 			
 				
-			if(dirtBlockActiveList[(- (int)Mathf.Floor(v3NewRowPosition.y)) % m_iAmountOfRows, i] != null)
+			if(dirtBlockActiveList[(- (int)Mathf.Floor(v3NewRowPosition.y)) % (m_iAmountOfRows/380), i] != null)
 			{
 				
-				GameObject.Destroy(dirtBlockActiveList[(- (int)Mathf.Floor(v3NewRowPosition.y))% m_iAmountOfRows,i]);
+				GameObject.Destroy(dirtBlockActiveList[(- (int)Mathf.Floor(v3NewRowPosition.y)) % (m_iAmountOfRows/380),i]);
 				
 			}
-			Debug.Log("block to spawn " + dirtBlockMapLayout[(- (int)Mathf.Floor(v3NewRowPosition.y)),i]);
 			GameObject newTileToDisplay = m_goTileBlockPrefabs[dirtBlockMapLayout[(- (int)Mathf.Floor(v3NewRowPosition.y)),i]];
 			
-			dirtBlockActiveList[ (- (int)Mathf.Floor(v3NewRowPosition.y)) % m_iAmountOfRows,i ] = GameObject.Instantiate(newTileToDisplay, new Vector3( v3NewRowPosition.x + ( i * 1 ), v3NewRowPosition.y, v3NewRowPosition.z),Quaternion.identity) as GameObject;
-			dirtBlockActiveList[ (- (int)Mathf.Floor(v3NewRowPosition.y)) % m_iAmountOfRows,i ].transform.parent = map.transform;
+			dirtBlockActiveList[ (- (int)Mathf.Floor(v3NewRowPosition.y)) % (m_iAmountOfRows/380),i ] = GameObject.Instantiate(newTileToDisplay, new Vector3( v3NewRowPosition.x + ( i * 32 ), v3NewRowPosition.y , v3NewRowPosition.z),Quaternion.identity) as GameObject;
+			dirtBlockActiveList[ (- (int)Mathf.Floor(v3NewRowPosition.y)) % (m_iAmountOfRows/380),i ].transform.parent = map.transform;
 		
 		}
-		
 		m_v3LastUpdatedMapPosition =  new Vector3(map.transform.position.x, v3NewRowPosition.y, map.transform.position.z);
 		
 	}
