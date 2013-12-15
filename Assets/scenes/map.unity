@@ -192,6 +192,7 @@ GameObject:
   - 136: {fileID: 833657973}
   - 23: {fileID: 833657972}
   - 114: {fileID: 833657971}
+  - 114: {fileID: 833657976}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -267,6 +268,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &833657976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 833657970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46917a191c4f9d54c8625cf8ce47f8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 2061778163}
 --- !u!1 &1170742759
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38857d2a9a3c3c34ba32d1a0f0223c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_goDiggedCubePrefab: {fileID: 100000, guid: 8050de268ec28f2458e92f3619949d4d, type: 2}
+  m_goDiggedSquarePrefab: {fileID: 100000, guid: 8050de268ec28f2458e92f3619949d4d,
+    type: 2}
 --- !u!58 &1594847851
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -474,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae24359e449b8ea46858a53966592acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diggerSpeed: .00999999978
+  m_fDiggerSpeed: .00999999978
 --- !u!50 &1594847854
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -517,7 +531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204e924a128565242bac7e92a447a08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_tPlayerPosition: {fileID: 1594847852}
   m_goTileBlockPrefabs:
   - {fileID: 100000, guid: 78b8328472d4e0949bd325497c37fd5d, type: 2}
   - {fileID: 100000, guid: a4ce09464a45c154dae7f34195528b26, type: 2}
